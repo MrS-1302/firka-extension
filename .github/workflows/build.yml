@@ -33,9 +33,9 @@ jobs:
 
       - name: Create new pre-release
         id: create_release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: pre-release
           release_name: Fejlesztői build
@@ -44,6 +44,7 @@ jobs:
             Ez egy kiadás előtti build, amely minden egyes commit után frissül.
           draft: false
           prerelease: true
+
 
       - name: Upload ZIP to release
         if: steps.create_release.outputs.upload_url != ''
