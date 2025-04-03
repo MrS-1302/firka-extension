@@ -22,7 +22,7 @@ jobs:
 
       - name: Create ZIP file
         run: |
-          zip -r "pre-firka-${{ env.DATE_FOR_ZIP }}.zip" . -x "*.git*" "*.github*"
+          zip -r "pre-firka-${{ env.DATE_FOR_ZIP }}.zip" . -x "*.git*" "*.github*" "*.idea*"
 
       - name: Delete previous pre-release
         uses: dev-drprasad/delete-tag-and-release@v0.2.1
@@ -46,8 +46,6 @@ jobs:
             A build automatikusan készült ekkor: ${{ env.DATE }}
           draft: false
           prerelease: true
-
-
 
       - name: Upload ZIP to release
         if: steps.create_release.outputs.upload_url != ''
