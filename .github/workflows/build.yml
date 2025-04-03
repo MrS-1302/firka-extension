@@ -16,11 +16,13 @@ jobs:
 
       - name: Get current date
         id: date
-        run: echo "DATE=$(date +'%Y.%m.%d. %H:%M')" >> $GITHUB_ENV
+        run: |
+          echo "DATE=$(date +'%Y.%m.%d. %H:%M')" >> $GITHUB_ENV
+          echo "DATE_FOR_ZIP=$(date +'%Y%m%d-%H%M')" >> $GITHUB_ENV
 
       - name: Create ZIP file
         run: |
-          zip -r "firxa-${{ env.DATE }}.zip" . -x "*.git*" "*.github*"
+          zip -r "pre-firka-${{ env.DATE_FOR_ZIP }}.zip" . -x "*.git*" "*.github*"
 
       - name: Delete previous pre-release
         uses: dev-drprasad/delete-tag-and-release@v0.2.1
@@ -54,6 +56,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./firxa-${{ env.DATE }}.zip
-          asset_name: firxa-${{ env.DATE }}.zip
+          asset_path: ./pre-firka-${{ env.DATE_FOR_ZIP }}.zip.zip
+          asset_name: pre-firka-${{ env.DATE_FOR_ZIP }}.zip.zip
           asset_content_type: application/zip
